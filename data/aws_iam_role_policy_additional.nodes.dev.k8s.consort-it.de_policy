@@ -1,0 +1,44 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Action": [
+        "route53:ChangeResourceRecordSets"
+      ],
+      "Resource": [
+        "arn:aws:route53:::hostedzone/ZV9BG3F7PE4KE"
+      ]
+    },
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Action": [
+        "route53:ListHostedZones",
+        "route53:ListResourceRecordSets",
+        "acm:ListCertificates",
+        "acm:DescribeCertificate",
+        "autoscaling:DescribeAutoScalingGroups",
+        "autoscaling:AttachLoadBalancers",
+        "autoscaling:DetachLoadBalancers",
+        "autoscaling:DetachLoadBalancerTargetGroups",
+        "autoscaling:AttachLoadBalancerTargetGroups",
+        "autoscaling:DescribeLoadBalancerTargetGroups",
+        "cloudformation:*",
+        "elasticloadbalancing:*",
+        "elasticloadbalancingv2:*",
+        "ec2:DescribeInstances",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeRouteTables",
+        "ec2:DescribeVpcs",
+        "iam:GetServerCertificate",
+        "iam:ListServerCertificates"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}

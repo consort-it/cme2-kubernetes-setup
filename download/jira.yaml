@@ -1,0 +1,66 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: jira-adapter-deployment
+  labels:
+    app: jira-adapter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jira-adapter
+  template:
+    metadata:
+      labels:
+        app: jira-adapter
+    spec:
+      containers:
+      - name: jira-adapter
+        image: consortit-docker-cme-local.jfrog.io/jira-adapter:20180321112313
+        ports:
+        - containerPort: 8080
+        - containerPort: 8081        
+        env:
+        - name: JIRA_URL
+          value: https://consort-it.atlassian.net
+        - name: JIRA_USERNAME
+          value: gitlab
+        - name: JIRA_PASSWORD
+          value: 7%nL1*OJju3My~q@
+      imagePullSecrets:
+        - name: regsecret        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jira-adapter-service  
+spec:  
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+      name: external
+    - port: 81
+      protocol: TCP
+      targetPort: 8081
+      name: health
+  selector:
+    app: jira-adapter    
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jira-adapter
+  labels:
+    application: jira-adapter
+spec:
+  rules:
+   - host: "cme.dev.k8s.consort-it.de"
+     http:
+      paths:
+      - path: /jira
+        backend:
+          serviceName: jira-adapter-service
+          servicePort: 80
+      
+
