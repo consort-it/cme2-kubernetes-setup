@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 # NOTE temporarely removed download cause local files are most latest and contain some modification not yet pushed
 #####rm -r download
@@ -16,12 +16,23 @@ cd download
 
 cd ..
 
+echo "Please kindly enter your AWS_REGION (eu-central-1) BASE64-DECODED: "
+read AWS_REGION
+
+echo "Please kindly enter your AWS_CLOUDWATCH_ACCESS (...) BASE64-DECODED: "
+read AWS_CLOUDWATCH_ACCESS
+
+echo "Please kindly enter your AWS_CLOUDWATCH_SECRET (...) BASE64-DECODED: "
+read AWS_CLOUDWATCH_SECRET
+
 kubectl create -f download/sa_admin.yaml
 kubectl create -f download/sa_admin_rolebinding.yaml
 #kubectl create -f download/sa_suadmin_rolebinding.yaml
 kubectl create -f download/ingress-controller.yaml
 kubectl create -f download/skipper.yaml
 #kubectl create -f download/external-dns.yaml
+AWS_REGION=$AWS_REGION AWS_CLOUDWATCH_ACCESS=$AWS_CLOUDWATCH_ACCESS AWS_CLOUDWATCH_SECRET=$AWS_CLOUDWATCH_SECRET envsubst<download/fluentd-k8s-cloudwatch-secrets.yaml > download/fluentd-k8s-cloudwatch-secrets_interpol.yaml
+kubectl create -f download/fluentd-k8s-cloudwatch-secrets_interpol.yaml 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 
 # NOTE for testing purpose another Microservice gets deployed. Microservice should be available by /jira?etc then
