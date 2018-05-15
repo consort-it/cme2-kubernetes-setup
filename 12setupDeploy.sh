@@ -16,13 +16,13 @@ cd download
 
 cd ..
 
-echo "Please kindly enter your AWS_REGION (eu-central-1): "
+echo "Please kindly enter your AWS_REGION (eu-central-1) BASE64-DECODED: "
 read AWS_REGION
 
-echo "Please kindly enter your AWS_CLOUDWATCH_ACCESS (...): "
+echo "Please kindly enter your AWS_CLOUDWATCH_ACCESS (...) BASE64-DECODED: "
 read AWS_CLOUDWATCH_ACCESS
 
-echo "Please kindly enter your AWS_CLOUDWATCH_SECRET (...): "
+echo "Please kindly enter your AWS_CLOUDWATCH_SECRET (...) BASE64-DECODED: "
 read AWS_CLOUDWATCH_SECRET
 
 kubectl create -f download/sa_admin.yaml
