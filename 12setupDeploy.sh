@@ -33,6 +33,7 @@ kubectl create -f download/skipper.yaml
 #kubectl create -f download/external-dns.yaml
 AWS_REGION=$AWS_REGION AWS_CLOUDWATCH_ACCESS=$AWS_CLOUDWATCH_ACCESS AWS_CLOUDWATCH_SECRET=$AWS_CLOUDWATCH_SECRET envsubst<download/fluentd-k8s-cloudwatch-secrets.yaml > download/fluentd-k8s-cloudwatch-secrets_interpol.yaml
 kubectl create -f download/fluentd-k8s-cloudwatch-secrets_interpol.yaml 
+kubectl create -f download/fluentd-configmap.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 
 # NOTE for testing purpose another Microservice gets deployed. Microservice should be available by /jira?etc then
